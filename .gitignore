@@ -2,5 +2,8 @@ G*/
 build/
 ins/
 dist/
+wspage/
+lg/
 *.spec
 *.exe
+*.cmd
