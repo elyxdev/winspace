@@ -1,0 +1,6 @@
+G*/
+build/
+ins/
+dist/
+*.spec
+*.exe
