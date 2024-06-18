@@ -1,4 +1,4 @@
-import os
+import os, shutil, glob
 def limpiar():
     try:
         if os.path.exists("build/"):
@@ -19,4 +19,3 @@ def compilar():
 if __name__ == "__main__":
     limpiar()
     compilar()
-    limpiar()
