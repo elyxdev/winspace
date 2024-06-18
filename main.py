@@ -1,4 +1,4 @@
-import os, json, time, sys, ctypes
+import os, json, time, sys, ctypes, requests, zipfile, shutil
 try:
     from pystyle import Colors, Write
 except:
@@ -7,12 +7,17 @@ except:
 defcol = Colors.blue_to_purple
 wp = os.getcwd()
 lg_folder = os.path.join(wp, 'lg')
-gh_exec = os.path.join(wp, 'gh.exe')
+if os.name == "nt":
+    gh_exec = "/usr/bin/gh"
+else:
+    gh_exec = os.path.join(wp, 'gh')
 os.chdir(wp)
 lg_in = False
 
 def run_as_admin():
     """Ejecuta el script con permisos de administrador."""
+    if os.name != "nt":
+        return
     try:
         if sys.argv[-1] != '-admin':
             ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
@@ -27,9 +32,20 @@ def check_files():
     if not os.path.exists(lg_folder):
         os.mkdir(lg_folder)
     if not os.path.exists(gh_exec):
-        jilog("No se encontró el ejecutable de GitHub CLI.")
-        time.sleep(4)
-        sys.exit(1)
+        if os.name == "nt":
+            jilog("No se encontró el ejecutable de GitHub CLI. Descargando...")
+            r = requests.get("https://github.com/cli/cli/releases/download/v2.51.0/gh_2.51.0_windows_amd64.zip")
+            with open(os.path.join(wp, 'gh.zip'), 'wb') as f:
+                f.write(r.content)
+            with zipfile.ZipFile('gh.zip', 'r') as zip_ref:
+                zip_ref.extractall(f'{wp}')
+            shutil.move(f"{wp}/bin/gh.exe", wp)
+            shutil.rmtree(f"{wp}/bin", ignore_errors=True)
+            os.remove(f"{wp}/gh.zip")
+        else:
+            os.system(f"chmod +x {wp}/installers/install_gh.sh && .{wp}/installers/install_gh.sh")
+        
+        
 
 # Limpia la pantalla
 def cls():
@@ -101,7 +117,7 @@ def main():
 
 if __name__ == "__main__":
     cls()
-    if ctypes.windll.shell32.IsUserAnAdmin() == 0:
+    if ctypes.windll.shell32.IsUserAnAdmin() == 0 and os.name == "nt":
         jilog("Este script requiere permisos de administrador.")
         run_as_admin()
     os.system("title WinSpace [Elyx] [1.0]")

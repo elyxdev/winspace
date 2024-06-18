@@ -4,6 +4,8 @@ ins/
 dist/
 wspage/
 lg/
+bin/
 *.spec
 *.exe
 *.cmd
+LICENSE
