@@ -1,10 +1,11 @@
 # Winspace
-🌟 Winspace es un software diseñado para conectarte rápidamente a tus Github Codespaces desde Windows o Linux 🌟
+🌟 Winspace es un software diseñado para conectarte rápidamente a tus Codespaces desde Windows o Linux 🌟
 # Mejorado!
 - ⏰ Lo esencial de la API fue extraído y puesto en el archivo principal para ahorrar espacio y mejorar la velocidad.
 - 📲 Ahora el ejecutable de GH se descarga automáticamente.
 - 🛠 Un controversial bug de desconexión fue solucionado.
 - 🌈 Fue estéticamente mejorado (mientras más colores mejor).
+- ♻ Ya no es requerido un instalador pues no hay necesidad de descomprimir más archivos
 # Instalación
 > **Windows**
 1. 🌐 Puedes descargar la última compilación desde el [sitio web oficial](http://winspace.rf.gd) de WinSpace para Windows.
