@@ -1,5 +1,9 @@
 import os, json, time, sys, ctypes
-from pystyle import Colors, Write
+try:
+    from pystyle import Colors, Write
+except:
+    os.system("pip3 install pystyle -q")
+    from pystyle import Colors, Write
 defcol = Colors.blue_to_purple
 wp = os.getcwd()
 lg_folder = os.path.join(wp, 'lg')
@@ -18,6 +22,7 @@ def run_as_admin():
         jilog(f"No se pudo ejecutar con permisos de administrador: {e}")
         sys.exit(1)
 
+# Verifica el ejecutable de GH CLI
 def check_files():
     if not os.path.exists(lg_folder):
         os.mkdir(lg_folder)
@@ -26,13 +31,16 @@ def check_files():
         time.sleep(4)
         sys.exit(1)
 
+# Limpia la pantalla
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+# Print personalizado
 def jilog(text):
     Write.Print(f"[+] {text}", defcol, 0.01)
     print()
 
+# Función principal
 def main():
     global lg_in
     cls()
