@@ -8,9 +8,9 @@ defcol = Colors.blue_to_purple
 wp = os.getcwd()
 lg_folder = os.path.join(wp, 'lg')
 if os.name == "nt":
-    gh_exec = "/usr/bin/gh"
+    gh_exec = os.path.join(wp, 'gh.exe')
 else:
-    gh_exec = os.path.join(wp, 'gh')
+    gh_exec = "/usr/bin/gh"
 os.chdir(wp)
 lg_in = False
 
@@ -66,7 +66,7 @@ def main():
         lineas = status.readlines()
         for linea in lineas:
             if "Logged in to github.com account" in linea:
-                if input("Ya has iniciado sesión. Deseas usar esta cuenta? [S/N] > ").lower() == "n":
+                if Write.Input("Ya has iniciado sesión. Deseas usar esta cuenta? [S/N] > ", defcol, 0.009).lower() == "n":
                     os.system("gh auth logout")
                     return main()
                 lg_in = True
@@ -102,14 +102,14 @@ def main():
         for name in cs_names:
             jilog(f"[{counter}] {name}")
             counter += 1
-        cs_name = cs_names[int(input("> "))]
+        cs_name = cs_names[int(Write.Input("> ", defcol, 0.009))]
     else:
         cs_name = varjson[0]['name']
     cls()
     os.system(f"title WinSpace: {cs_name} [Elyx] [1.0]")
     os.system(f"gh codespace ssh -c {cs_name}")
 
-    if input("[S/N] Apagar el codespace? > ").lower() == "s":
+    if Write.Input("[S/N] Apagar el codespace? > ", defcol, 0.009).lower() == "s":
         os.system(f"gh codespace stop -c {cs_name}")
     jilog("¡Gracias por usar WinSpace!")
     time.sleep(3)
