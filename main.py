@@ -17,7 +17,7 @@ lg_in = False
 def run_as_admin():
     """Ejecuta el script con permisos de administrador."""
     if os.name != "nt":
-        return
+        pass
     try:
         if sys.argv[-1] != '-admin':
             ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
@@ -43,7 +43,8 @@ def check_files():
             shutil.rmtree(f"{wp}/bin", ignore_errors=True)
             os.remove(f"{wp}/gh.zip")
         else:
-            os.system(f"chmod +x {wp}/installers/install_gh.sh && .{wp}/installers/install_gh.sh")
+            os.system(f"chmod +x {wp}/installers/install_gh.sh && {wp}/installers/install_gh.sh")
+            input()
         
         
 
@@ -117,9 +118,14 @@ def main():
 
 if __name__ == "__main__":
     cls()
-    if ctypes.windll.shell32.IsUserAnAdmin() == 0 and os.name == "nt":
-        jilog("Este script requiere permisos de administrador.")
-        run_as_admin()
+    if os.name == "nt":
+        if ctypes.windll.shell32.IsUserAnAdmin() == 0:
+            jilog("Este script requiere permisos de administrador.")
+            run_as_admin()
+    else:
+        if os.getuid() != 0:
+            jilog("Este script requiere permisos de administrador.")
+            sys.exit(0)
     os.system("title WinSpace [Elyx] [1.0]")
     check_files()
     main()
