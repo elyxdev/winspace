@@ -44,9 +44,6 @@ def check_files():
             os.remove(f"{wp}/gh.zip")
         else:
             os.system(f"chmod +x {wp}/installers/install_gh.sh && {wp}/installers/install_gh.sh")
-            input()
-        
-        
 
 # Limpia la pantalla
 def cls():
