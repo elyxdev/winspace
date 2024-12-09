@@ -75,7 +75,7 @@ def main():
             # Loggear
             jilog("Iniciando sesión en GitHub.")
             jilog(f"Copia este código, apreta Enter y pégalo en tu navegador.")
-            os.system("gh auth login -p ssh -w --insecure-storage --skip-ssh-key")
+            os.system("gh auth login -p ssh -w --insecure-storage --skip-ssh-key -s codespace")
     cls()
     # Permisos de codespaces
     jilog("Obteniendo lista de codespaces.")
@@ -120,6 +120,6 @@ if __name__ == "__main__":
     if ctypes.windll.shell32.IsUserAnAdmin() == 0 and os.name == "nt":
         jilog("Este script requiere permisos de administrador.")
         run_as_admin()
-    os.system("title WinSpace [Elyx] [1.0]")
+    os.system("title WinSpace [Elyx] [1.1]")
     check_files()
     main()
